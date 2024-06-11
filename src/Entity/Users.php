@@ -32,11 +32,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 100, nullable: true)]
-    private ?string $nickname = null;
+    #[ORM\Column(length: 125, nullable: true)]
+    private ?string $pseudo = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $isVerified = null;
+    #[ORM\Column (type: 'boolean')]
+    private ?bool $isVerified = false;
 
     #[ORM\OneToMany(targetEntity: Posts::class, mappedBy: 'users', orphanRemoval: true)]
     private Collection $posts;
@@ -125,31 +125,30 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getNickname(): ?string
+    public function getPseudo(): ?string
     {
-        return $this->nickname;
+        return $this->pseudo;
     }
 
-    public function setNickname(?string $nickname): static
+    public function setPseudo(?string $pseudo): static
     {
-        $this->nickname = $nickname;
+        $this->pseudo = $pseudo;
 
         return $this;
     }
 
-    public function isVerified(): ?bool
+    public function isIsVerified(): ?bool
     {
         return $this->isVerified;
     }
 
-    public function setIsVerified(?bool $isVerified): static
+    public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
 
         return $this;
     }
-
-    /**
+     /**
      * @return Collection<int, Posts>
      */
     public function getPosts(): Collection
@@ -208,5 +207,4 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
 }
