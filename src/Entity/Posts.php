@@ -190,4 +190,8 @@ class Posts
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->users;
+    }
 }
