@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+
+<div class="d-flex justify-content-center align-items-center full-height">
+    <div class="container text-center container_login_form">
+        <h1>Inscription</h1>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.pseudo) }}
+        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button type="submit" class="btn">Inscription</button>
+        <p>
+            Vous avez déjà un compte ? <a href="{{ path('app_login')}}">Connexion</a>
+        </p>
+        {{ form_end(registrationForm) }}
+    </div>
+</div>
+{% endblock %}
