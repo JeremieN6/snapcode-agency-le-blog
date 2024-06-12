@@ -54,12 +54,12 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('Blog');
         yield MenuItem::linkToCrud('Categories', 'fa fa-tags', Categories::class);
-        yield MenuItem::linkToCrud('Blog Posts', 'fa fa-file-text', Posts::class);
+        yield MenuItem::linkToCrud('Articles', 'fa fa-file-text', Posts::class);
         yield MenuItem::linkToCrud('Keywords', 'fa fa-key', Keywords::class);
 
-        yield MenuItem::section('Utilisateurs');
-        yield MenuItem::linkToCrud('Users', 'fa fa-user', Users::class);
-        yield MenuItem::linkToCrud('Comments', 'fa fa-comment', Comments::class);
+        yield MenuItem::section('Profils');
+        yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-user', Users::class);
+        yield MenuItem::linkToCrud('Commentaires', 'fa fa-comment', Comments::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

@@ -26,6 +26,7 @@ class PostsCrudController extends AbstractCrudController
             TextField::new('title'),
             SlugField::new('slug')->setTargetFieldName('title'),
             TextEditorField::new('content'),
+            TextField::new('featuredImage'),
             AssociationField::new('users'),
         ];
     }

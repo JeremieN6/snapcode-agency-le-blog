@@ -149,4 +149,9 @@ class Categories
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return sprintf('%d - %s', $this->id, $this->name);
+    }
 }
