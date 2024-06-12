@@ -24,6 +24,16 @@ class RegistrationFormType extends AbstractType
                     'placeholder' => 'Email'
                 ]
             ])
+            ->add('nom', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Nom'
+                ]
+            ])
+            ->add('prenom', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Prénom'
+                ]
+            ])
             ->add('pseudo', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Pseudo'

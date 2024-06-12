@@ -46,6 +46,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Comments::class, mappedBy: 'users', orphanRemoval: true)]
     private Collection $comments;
 
+    #[ORM\Column(length: 150, nullable: true)]
+    private ?string $nom = null;
+
+    #[ORM\Column(length: 150, nullable: true)]
+    private ?string $prenom = null;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -213,5 +219,29 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString()
     {
         return $this->pseudo;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(?string $nom): static
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(?string $prenom): static
+    {
+        $this->prenom = $prenom;
+
+        return $this;
     }
 }
