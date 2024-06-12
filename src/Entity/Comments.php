@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommentsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -21,8 +22,11 @@ class Comments
     #[ORM\Column(nullable: true)]
     private ?bool $isReply = null;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'comments')]
-    private ?self $comments = null;
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'replies')]
+    private ?self $parent = null;
+
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    private Collection $replies;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
@@ -33,7 +37,7 @@ class Comments
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
+        $this->replies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -65,34 +69,39 @@ class Comments
         return $this;
     }
 
-    public function getComments(): ?self
+    public function getParent(): ?self
     {
-        return $this->comments;
+        return $this->parent;
     }
 
-    public function setComments(?self $comments): static
+    public function setParent(?self $parent): static
     {
-        $this->comments = $comments;
+        $this->parent = $parent;
 
         return $this;
     }
 
-    public function addComment(self $comment): static
+    public function getReplies(): Collection
     {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
-            $comment->setComments($this);
+        return $this->replies;
+    }
+
+    public function addReply(self $reply): static
+    {
+        if (!$this->replies->contains($reply)) {
+            $this->replies->add($reply);
+            $reply->setParent($this);
         }
 
         return $this;
     }
 
-    public function removeComment(self $comment): static
+    public function removeReply(self $reply): static
     {
-        if ($this->comments->removeElement($comment)) {
+        if ($this->replies->removeElement($reply)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getComments() === $this) {
-                $comment->setComments(null);
+            if ($reply->getParent() === $this) {
+                $reply->setParent(null);
             }
         }
 
