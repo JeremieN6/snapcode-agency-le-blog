@@ -21,6 +21,44 @@ class PostsRepository extends ServiceEntityRepository
         parent::__construct($registry, Posts::class);
     }
 
+    public function findLatestPostsByCategory(): array
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT p
+            FROM App\Entity\Posts p
+            INNER JOIN p.categories c
+            WHERE p.createdAt IN (
+                SELECT MAX(p2.createdAt)
+                FROM App\Entity\Posts p2
+                INNER JOIN p2.categories c2
+                WHERE c2.id = c.id
+                GROUP BY c2.id
+            )'
+        );
+
+        return $query->getResult();
+    }
+
+    public function findThreeMostRecentPosts(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function searchByKeyword($keyword)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.title LIKE :keyword OR p.content LIKE :keyword')
+            ->setParameter('keyword', '%'.$keyword.'%')
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Posts[] Returns an array of Posts objects
 //     */

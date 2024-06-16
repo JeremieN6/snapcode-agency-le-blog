@@ -9,7 +9,9 @@
             <figure class="wp-block-image size-full is-resized cs-display-only-dark">
             <img loading="lazy" decoding="async" width="246" height="80" src="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/11/demo-logo-dark-0002@2x.webp" alt="Swyft" class="wp-image-2384" style="object-fit:cover;width:123px;height:40px" />
             </figure>
-            <p class="has-primary-color has-text-color" style="font-size:18px;font-style:normal;font-weight:500">Welcome to your go-to destination for fresh perspectives. Dive deep into our rich content pool curated meticulously to enlighten, entertain, and engage readers across the globe.</p>
+            <p class="has-primary-color has-text-color" style="font-size:18px;font-style:normal;font-weight:500">
+                Découvrez Snapcode Agency - Le Blog, une plateforme dédiée aux entreprises et entrepreneurs. Notre objectif est de partager des connaissances sur le développement web, d'optimiser votre marketing digital avec des conseils pratiques, des études de cas, et les dernières tendances pour booster votre présence en ligne et améliorer votre site web.
+            </p>
             <ul class="wp-block-social-links is-layout-flex wp-block-social-links-is-layout-flex">
             <li class="wp-social-link wp-social-link-facebook  wp-block-social-link">
                 <a href="https://www.facebook.com/codesupplyco/" title="Facebook" class="wp-block-social-link-anchor">
@@ -50,7 +52,7 @@
     <div class="widget block-4 widget_block">
         <div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained">
         <div class="wp-block-group__inner-container">
-            <h2 class="wp-block-heading">Featured Posts</h2>
+            <h2 class="wp-block-heading">Article en vedette</h2>
             <ul class="wp-block-latest-posts__list has-dates has-author is-style-cs-horizontal-layout wp-block-latest-posts">
             <li>
                 <div class="wp-block-latest-posts__featured-image alignleft">
@@ -103,24 +105,13 @@
     <div class="widget block-3 widget_block">
         <div class="wp-block-group is-style-default is-layout-constrained wp-block-group-is-layout-constrained">
         <div class="wp-block-group__inner-container">
-            <h2 class="wp-block-heading is-style-default">Explore Categories</h2>
+            <h2 class="wp-block-heading is-style-default">Nos Catégories</h2>
             <ul class="wp-block-categories-list is-style-cs-tiles wp-block-categories">
-            <li class="cat-item cat-item-206">
-                <a href="https://swyft.codesupply.co/lifestyle/category/lifestyle/">Lifestyle <span>10</span>
-                </a>
-            </li>
-            <li class="cat-item cat-item-2">
-                <a href="https://swyft.codesupply.co/lifestyle/category/technology/">Technology <span>10</span>
-                </a>
-            </li>
-            <li class="cat-item cat-item-3">
-                <a href="https://swyft.codesupply.co/lifestyle/category/travel/">Travel <span>10</span>
-                </a>
-            </li>
-            <li class="cat-item cat-item-5">
-                <a href="https://swyft.codesupply.co/lifestyle/category/trends/">Trends <span>10</span>
-                </a>
-            </li>
+                {% for item in categorieListWithCount %}
+                    <li class="cat-item cat-item-{{ item.id }}">
+                        <a href="{{ path('app_category', { slug: item.slug }) }}">{{ item.name }} <span>{{ item.postCount }}</span></a>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
         </div>
@@ -132,11 +123,11 @@
             <span aria-hidden="true" class="wp-block-cover__background has-background-dim"></span>
             <img loading="lazy" decoding="async" width="976" height="438" class="wp-block-cover__image-background wp-image-2328" alt="Subscribe to Our Newsletter" src="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-subscribe-0001.webp" data-object-fit="cover" srcset="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-subscribe-0001.webp 976w, https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-subscribe-0001-300x135.webp 300w, https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-subscribe-0001-768x345.webp 768w, https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-subscribe-0001-512x230.webp 512w, https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-subscribe-0001-920x413.webp 920w" sizes="(max-width: 976px) 100vw, 976px" />
             <div class="wp-block-cover__inner-container is-layout-constrained wp-block-cover-is-layout-constrained">
-                <p class="has-large-font-size">Join Us and Let’s Explore Together</p>
-                <p>Subscribe to our newsletter and be the first to access exclusive content and expert insights.</p>
+                <p class="has-large-font-size">Rejoignez nous. Explorons le web ensemble</p>
+                <p>Souscrivez à notre Newsletter et faites parti des premiers à avoir accès à des contenus exclusif et à des avis d'experts.</p>
                 <div class="wp-block-buttons is-layout-flex wp-block-buttons-is-layout-flex">
                 <div class="wp-block-button">
-                    <a class="wp-block-button__link wp-element-button" href="https://codesupply.us13.list-manage.com/subscribe/post?u=41845cb8908fb4302a4df512f&amp;id=b5a5e9c757">Subscribe</a>
+                    <a class="wp-block-button__link wp-element-button" href="#">Souscrire</a>
                 </div>
                 </div>
             </div>
@@ -147,7 +138,7 @@
     <div class="widget block-7 widget_block">
         <div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained">
         <div class="wp-block-group__inner-container">
-            <h2 class="wp-block-heading">Sponsored Ad</h2>
+            <h2 class="wp-block-heading">Publicité Sponsorisée</h2>
             <figure class="wp-block-image size-full is-resized">
             <img loading="lazy" decoding="async" width="600" height="800" src="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-sponsored-ad-0002.webp" alt="Unleash Growth Potential with Our Cutting-Edge Solutions" class="wp-image-2327" style="object-fit:cover;width:300px;height:400px" srcset="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-sponsored-ad-0002.webp 600w, https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-sponsored-ad-0002-225x300.webp 225w, https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-sponsored-ad-0002-512x683.webp 512w" sizes="(max-width: 600px) 100vw, 600px" />
             </figure>

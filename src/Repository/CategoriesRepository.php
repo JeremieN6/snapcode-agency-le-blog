@@ -21,6 +21,16 @@ class CategoriesRepository extends ServiceEntityRepository
         parent::__construct($registry, Categories::class);
     }
 
+    public function findAllWithPostCount()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('c.id', 'c.name', 'c.slug', 'COUNT(p.id) AS postCount')
+            ->leftJoin('c.posts', 'p')
+            ->groupBy('c.id');
+
+        return $qb->getQuery()->getScalarResult();
+    }
+
     //    /**
     //     * @return Categories[] Returns an array of Categories objects
     //     */
