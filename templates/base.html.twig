@@ -49,7 +49,7 @@
 
     </head>
     <body class="archive category category-trends category-5 wp-embed-responsive cs-page-layout-disabled cs-navbar-smart-enabled cs-sticky-sidebar-enabled cs-stick-last">
-        {% include 'header.html.twig' %}
+        {% include 'header.html.twig' with {'searchForm': searchForm} %}
         
          <div id="page" class="cs-site">
             {% block body %}{% endblock %}

@@ -211,16 +211,17 @@
         <div class="cs-search-overlay"></div>
         <div class="cs-search">
             <div class="cs-search__header">
-            <h2>What are You Looking for?</h2>
+            <h2>Que recherchez vous ?</h2>
             <span class="cs-search__close" role="button" aria-label="Close search button">
                 <i class="cs-icon cs-icon-x"></i>
             </span>
             </div>
             <div class="cs-search__form-container">
-            <form role="search" method="get" class="cs-search__form" action="https://swyft.codesupply.co/lifestyle/">
+              <form role="search" method="get" class="cs-search__form" action="{{ path('app_search') }}">
                 <div class="cs-search__group">
-                <input required class="cs-search__input" type="search" value="" name="s" placeholder="Search..." role="searchbox">
-                <button class="cs-search__submit" aria-label="Search" type="submit"> Search </button>
+                    {{ form_widget(searchForm) }}
+                      {# <input required class="cs-search__input" type="search" value="" name="s" placeholder="Search..." role="searchbox"> #}
+                    <button class="cs-search__submit" aria-label="Search" type="submit">Chercher</button>
                 </div>
             </form>
             </div>
@@ -228,18 +229,11 @@
             <div class="cs-entry__post-meta">
                 <div class="cs-meta-category">
                 <ul class="post-categories">
+                  {% for item in categoryList %}
                     <li>
-                    <a href="https://swyft.codesupply.co/lifestyle/category/lifestyle/" rel="category tag"> Lifestyle </a>
+                    <a href="{{ path('app_category', {slug: item.slug}) }}" rel="category tag"> {{ item.name }} </a>
                     </li>
-                    <li>
-                    <a href="https://swyft.codesupply.co/lifestyle/category/technology/" rel="category tag"> Technology </a>
-                    </li>
-                    <li>
-                    <a href="https://swyft.codesupply.co/lifestyle/category/travel/" rel="category tag"> Travel </a>
-                    </li>
-                    <li>
-                    <a href="https://swyft.codesupply.co/lifestyle/category/trends/" rel="category tag"> Trends </a>
-                    </li>
+                  {% endfor %}
                 </ul>
                 </div>
             </div>

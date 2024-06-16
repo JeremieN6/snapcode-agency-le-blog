@@ -62,14 +62,14 @@ class MainController extends AbstractController
             $data = $searchForm->getData();
             $query = $data['query'];
         }
-
+        
         if ($query) {
             $posts = $postsRepository->searchByKeyword($query);
         } else {
             $posts = [];
         }
         
-        dd($query);
+        // dd($query);
 
         return $this->render('main/search_results.html.twig', [
             'query' => $query,

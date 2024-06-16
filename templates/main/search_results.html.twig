@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultats de la recherche{% endblock %}
+
+{% block body %}
+<div id="content" class="cs-main-content">
+    <div id="primary" class="cs-content-area">
+        <div class="cs-page__header ">
+            <h1 class="cs-page__title"><span>Résultat de la recherche pour : "{{ query }}"</span></h1>
+            {% if posts is not empty %}
+            <ul>
+                {% for post in posts %}
+                    <li>
+                        <a href="{{ path('article_show', { slug: post.slug }) }}">{{ post.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+        </div>
+        <div class="entry-content cs-content-not-found">
+            <div class="cs-content-not-found-content"> 
+                Il semble que nous ne parvenons pas à trouver ce que vous chercher. Veuillez reformuler ou vérifier l'orthographe s'il vous plaît.
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
