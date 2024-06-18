@@ -28,13 +28,14 @@ class MainController extends AbstractController
         $recentPosts = $postsRepository->findThreeMostRecentPosts();
 
         // Définir la locale pour la requête
-        $request->setLocale('fr');
+        // $request->setLocale('fr');
 
         $latestPostsByCategory = $postsRepository->findLatestPostsByCategory();
 
-        // Créer le formulaire de recherche
         $searchForm = $this->createForm(SearchFormType::class);
         $searchForm->handleRequest($request);
+    
+        // dump($searchForm->createView()); // Ajoutez ceci pour vérifier que le formulaire est bien créé
 
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
@@ -55,25 +56,33 @@ class MainController extends AbstractController
         // Récupérer la valeur du formulaire
         $searchForm = $this->createForm(SearchFormType::class);
         $searchForm->handleRequest($request);
-
+    
         $query = null;
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $data = $searchForm->getData();
             $query = $data['query'];
+            // dump($query); // Vérifiez que la requête est bien récupérée
+        } else {
+            // dump('Form not submitted or not valid'); // Vérifiez l'état du formulaire
         }
-        
+    
         if ($query) {
             $posts = $postsRepository->searchByKeyword($query);
         } else {
             $posts = [];
         }
-        
-        // dd($query);
 
+        // Récupérer les catégories associées à chaque post
+        $postCategories = [];
+        foreach ($posts as $post) {
+            $postCategories[$post->getId()] = $post->getCategories();
+        }
+       
         return $this->render('main/search_results.html.twig', [
             'query' => $query,
             'posts' => $posts,
+            'postCategories' => $postCategories,
             'searchForm' => $searchForm->createView(),
             "categoryList" => $allCategories,
         ]);
@@ -104,7 +113,7 @@ class MainController extends AbstractController
         // $currentPost = $postsRepository->findBy(['categories' => $category]);
 
         // Débogage: Vérifiez que la catégorie est récupérée correctement
-        dump($category);
+        // dump($category);
 
         // Récupérer les articles de cette catégorie
         $currentPost = $postsRepository->createQueryBuilder('p')
@@ -115,7 +124,7 @@ class MainController extends AbstractController
             ->getResult();
 
         // Débogage: Vérifiez que les articles sont récupérés correctement
-        dump($currentPost);
+        // dump($currentPost);
 
         // Compter le nombre d'articles dans cette catégorie
         $postCount = $postsRepository->createQueryBuilder('p')
