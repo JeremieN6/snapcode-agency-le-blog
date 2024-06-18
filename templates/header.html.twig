@@ -250,7 +250,7 @@
         <div class="cs-entry__post-meta">
           <div class="cs-meta-category">
             <ul class="post-categories">
-              {% for item in categoryList %}
+              {% for item in categoryPost %}
               <li>
                 <a href="{{ path('app_category', {slug: item.slug}) }}" rel="category tag"> {{ item.name }} </a>
               </li>

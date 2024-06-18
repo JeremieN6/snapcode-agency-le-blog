@@ -19,7 +19,7 @@ class MainController extends AbstractController
         PostsRepository $postsRepository
     ): Response
     {
-        $allCategories = $categoriesRepository->findAll();
+        $categoryPost = $categoriesRepository->findAll();
 
          // Récupérer les catégories avec le nombre de posts
          $allCategoriesWithCount = $categoriesRepository->findAllWithPostCount();
@@ -42,7 +42,7 @@ class MainController extends AbstractController
             'latestPostsByCategory' => $latestPostsByCategory,
             'recentPosts' => $recentPosts,
             'categorieListWithCount' => $allCategoriesWithCount,
-            "categoryList" => $allCategories,
+            'categoryPost' => $categoryPost,
             'searchForm' => $searchForm->createView(),
         ]);
     }
@@ -51,7 +51,7 @@ class MainController extends AbstractController
     public function search(Request $request, PostsRepository $postsRepository, CategoriesRepository $categoriesRepository): Response
     {
 
-        $allCategories = $categoriesRepository->findAll();
+        $categoryPost = $categoriesRepository->findAll();
 
         // Récupérer la valeur du formulaire
         $searchForm = $this->createForm(SearchFormType::class);
@@ -84,7 +84,7 @@ class MainController extends AbstractController
             'posts' => $posts,
             'postCategories' => $postCategories,
             'searchForm' => $searchForm->createView(),
-            "categoryList" => $allCategories,
+            'categoryPost' => $categoryPost,
         ]);
     }
 
@@ -103,9 +103,9 @@ class MainController extends AbstractController
         $request->setLocale('fr');
 
         // Récupérer la catégorie par son slug
-        $category = $categoriesRepository->findOneBy(['slug' => $slug]);
+        $categoryPost = $categoriesRepository->findOneBy(['slug' => $slug]);
 
-        if (!$category) {
+        if (!$categoryPost) {
             throw $this->createNotFoundException('Catégorie non trouvé !');
         }
 
@@ -119,7 +119,7 @@ class MainController extends AbstractController
         $currentPost = $postsRepository->createQueryBuilder('p')
             ->join('p.categories', 'c')
             ->where('c.id = :categoryId')
-            ->setParameter('categoryId', $category->getId())
+            ->setParameter('categoryId', $categoryPost->getId())
             ->getQuery()
             ->getResult();
 
@@ -131,17 +131,21 @@ class MainController extends AbstractController
         ->select('count(p.id)')
         ->join('p.categories', 'c')
         ->where('c.id = :categoryId')
-        ->setParameter('categoryId', $category->getId())
+        ->setParameter('categoryId', $categoryPost->getId())
         ->getQuery()
         ->getSingleScalarResult();
+
+        $searchForm = $this->createForm(SearchFormType::class);
+        $searchForm->handleRequest($request);
 
         
         return $this->render('main/category.html.twig', [
             'controller_name' => 'HomeController',
-            'category' => $category,
+            'categoryPost' => $categoryPost,
             'postsList' => $currentPost,
             'postCount' => $postCount,
             'categorieListWithCount' => $allCategoriesWithCount,
+            'searchForm' => $searchForm->createView(),
         ]);
     }
 
@@ -153,8 +157,11 @@ class MainController extends AbstractController
         string $slug
     ): Response
     {
-         // Récupérer les catégories avec le nombre de posts
-         $allCategoriesWithCount = $categoriesRepository->findAllWithPostCount();
+        // Récupérer les catégories avec le nombre de posts
+        $allCategoriesWithCount = $categoriesRepository->findAllWithPostCount();
+
+        // Récupérer la catégorie par son slug
+        $categoryPost = $categoriesRepository->findOneBy(['slug' => $slug]);
 
         // Définir la locale pour la requête
         $request->setLocale('fr');
@@ -185,10 +192,15 @@ class MainController extends AbstractController
         shuffle($relatedPosts);
         $relatedPosts = array_slice($relatedPosts, 0, 4);
 
+        $searchForm = $this->createForm(SearchFormType::class);
+        $searchForm->handleRequest($request);
+
         return $this->render('main/article.html.twig', [
             'categorieListWithCount' => $allCategoriesWithCount,
             'post' => $post,
-            'relatedPosts' => $relatedPosts
+            'searchForm' => $searchForm->createView(),
+            'relatedPosts' => $relatedPosts,
+            'categoryPost' => $categoryPost
         ]);
     }
 }
