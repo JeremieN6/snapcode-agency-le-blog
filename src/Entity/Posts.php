@@ -47,6 +47,9 @@ class Posts
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isFavorite = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -223,5 +226,17 @@ class Posts
     public function __toString()
     {
         return $this->users;
+    }
+
+    public function isIsFavorite(): ?bool
+    {
+        return $this->isFavorite;
+    }
+
+    public function setIsFavorite(?bool $isFavorite): static
+    {
+        $this->isFavorite = $isFavorite;
+
+        return $this;
     }
 }

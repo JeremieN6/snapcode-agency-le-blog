@@ -163,6 +163,8 @@ class MainController extends AbstractController
         // Récupérer la catégorie par son slug
         $categoryPost = $categoriesRepository->findOneBy(['slug' => $slug]);
 
+        $favoritePosts = $postsRepository->findBy(['isFavorite' => true]);
+
         // Définir la locale pour la requête
         $request->setLocale('fr');
 
@@ -200,7 +202,8 @@ class MainController extends AbstractController
             'post' => $post,
             'searchForm' => $searchForm->createView(),
             'relatedPosts' => $relatedPosts,
-            'categoryPost' => $categoryPost
+            'categoryPost' => $categoryPost,
+            'favoritePosts' => $favoritePosts
         ]);
     }
 }
