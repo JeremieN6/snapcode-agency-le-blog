@@ -30,6 +30,8 @@ class MainController extends AbstractController
         // Définir la locale pour la requête
         // $request->setLocale('fr');
 
+        $favoritePosts = $postsRepository->findBy(['isFavorite' => true]);
+
         $latestPostsByCategory = $postsRepository->findLatestPostsByCategory();
 
         $searchForm = $this->createForm(SearchFormType::class);
@@ -44,6 +46,7 @@ class MainController extends AbstractController
             'categorieListWithCount' => $allCategoriesWithCount,
             'categoryPost' => $categoryPost,
             'searchForm' => $searchForm->createView(),
+            'favoritePosts' => $favoritePosts,
         ]);
     }
 
@@ -52,6 +55,8 @@ class MainController extends AbstractController
     {
 
         $categoryPost = $categoriesRepository->findAll();
+
+        $favoritePosts = $postsRepository->findBy(['isFavorite' => true]);
 
         // Récupérer la valeur du formulaire
         $searchForm = $this->createForm(SearchFormType::class);
@@ -85,6 +90,7 @@ class MainController extends AbstractController
             'postCategories' => $postCategories,
             'searchForm' => $searchForm->createView(),
             'categoryPost' => $categoryPost,
+            'favoritePosts' => $favoritePosts
         ]);
     }
 
@@ -101,6 +107,8 @@ class MainController extends AbstractController
 
         // Définir la locale pour la requête
         $request->setLocale('fr');
+
+        $favoritePosts = $postsRepository->findBy(['isFavorite' => true]);
 
         // Récupérer la catégorie par son slug
         $categoryPost = $categoriesRepository->findOneBy(['slug' => $slug]);
@@ -146,6 +154,7 @@ class MainController extends AbstractController
             'postCount' => $postCount,
             'categorieListWithCount' => $allCategoriesWithCount,
             'searchForm' => $searchForm->createView(),
+            'favoritePosts' => $favoritePosts,
         ]);
     }
 
