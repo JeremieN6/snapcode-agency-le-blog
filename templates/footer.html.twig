@@ -16,33 +16,28 @@
         <div class="cs-footer__col cs-col-center">
             <div class="cs-footer__nav-menu">
             <ul id="menu-footer" class="cs-footer__nav ">
-                <li id="menu-item-2009" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2009">
-                <a href="https://swyft.codesupply.co/lifestyle/category/lifestyle/">Lifestyle</a>
-                </li>
-                <li id="menu-item-2010" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2010">
-                <a href="https://swyft.codesupply.co/lifestyle/category/travel/">Travel</a>
-                </li>
-                <li id="menu-item-2011" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2011">
-                <a href="https://swyft.codesupply.co/lifestyle/category/technology/">Technology</a>
-                </li>
-                <li id="menu-item-2012" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2012">
-                <a href="https://swyft.codesupply.co/lifestyle/category/trends/">Trends</a>
-                </li>
+                {% for name, slug in menuCategorie %}
+                    {% if name in ['Développement Web', 'Projets Clients', 'Conseils aux Entreprises', 'Marketing Digital et Stratégie Web'] %}
+                        <li id="menu-item-2009" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2009">
+                            <a href="{{ path('app_category', { slug: slug }) }}">{{ name }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
             </ul>
             </div>
         </div>
         <div class="cs-footer__col cs-col-right">
             <div class="cs-social">
-            <a class="cs-social__link" href="https://www.facebook.com/codesupplyco/" target="_blank">
+            <a class="cs-social__link" href="#" target="_blank">
                 <img src="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-icon-facebook-0001.webp" alt="Facebook" srcset="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-icon-facebook-0001.webp 1x, https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-icon-facebook-0001@2x.webp 2x">
             </a>
-            <a class="cs-social__link" href="https://twitter.com/codesupplyco/" target="_blank">
+            <a class="cs-social__link" href="#" target="_blank">
                 <img src="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-icon-twitter-new-0001.webp" alt="Twitter" srcset="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-icon-twitter-new-0001.webp 1x, https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-icon-twitter-new-0001@2x.webp 2x">
             </a>
-            <a class="cs-social__link" href="https://www.instagram.com/codesupply.co/" target="_blank">
+            <a class="cs-social__link" href="#" target="_blank">
                 <img src="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-icon-instagram-0001.webp" alt="Instagram" srcset="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-icon-instagram-0001.webp 1x, https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-icon-instagram-0001@2x.webp 2x">
             </a>
-            <a class="cs-social__link" href="https://www.pinterest.com/envato/" target="_blank">
+            <a class="cs-social__link" href="#" target="_blank">
                 <img src="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-icon-pinterest-0001.webp" alt="Pinterest" srcset="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-icon-pinterest-0001.webp 1x, https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/10/demo-icon-pinterest-0001@2x.webp 2x">
             </a>
             </div>
@@ -51,7 +46,7 @@
     </div>
     <div class="cs-footer__item cs-footer__item-bottom-bar">
         <div class="cs-footer__item-inner">
-        <div class="cs-footer__copyright"> ©️ 2023 — Swyft. All Rights Reserved.</div>
+        <div class="cs-footer__copyright"> ©️ 2023 — Snapcode Agency - Le Blog. Tous les droits réservés.</div>
         </div>
     </div>
     </div>

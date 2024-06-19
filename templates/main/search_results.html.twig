@@ -3,77 +3,82 @@
 {% block title %}Résultats de la recherche{% endblock %}
 
 {% block body %}
-<div id="content" class="cs-main-content cs-container">
-    <div id="primary" class="cs-content-area">
-        <div class="cs-page__header cs-page__header-has-description">
-            <h1 class="cs-page__title"><span>Résultat de la recherche pour : "{{ query }}"</span></h1>
-        </div>
-        <div class="cs-posts-area cs-posts-area-posts" data-init="true">
-            <div class="cs-posts-area__outer">
-                <div class="cs-posts-area__main cs-archive-grid  cs-posts-area__archive cs-posts-area__grid">
-                    {% if posts is not empty %}
-                    {% for post in posts %}
-                    <article
-                        class="post-{{ post.id }} post type-post status-publish format-standard has-post-thumbnail category-trends cs-entry">
-                        <div class="cs-entry__outer">
-                            <div class="cs-entry__inner cs-entry__thumbnail cs-entry__overlay cs-overlay-ratio cs-ratio-landscape"
-                                data-scheme="inverse">
-                                <div class="cs-overlay-background">
-                                    <img width="512" height="384" src="{{ post.featuredImage }}"
-                                        class="attachment-csco-thumbnail size-csco-thumbnail wp-post-image"
-                                        alt="From Athleisure to Workleisure: Response to Remote Work" decoding="async"
-                                        fetchpriority="high"
-                                        srcset="{{ post.featuredImage }} 512w, {{ post.featuredImage }} 1024w"
-                                        sizes="(max-width: 512px) 100vw, 512px">
-                                </div>
-                                <a class="cs-overlay-link" href="{{ path('article_show', {slug: post.slug}) }}"
-                                    title="{{post.title}}"></a>
-                            </div>
-                            <div class="cs-entry__inner cs-entry__content">
-                                <div class="cs-entry__post-meta">
-                                    <div class="cs-meta-author">
-                                        <span class="cs-meta-author-by">Par</span>
-                                        <a class="cs-meta-author-link url fn n" href="#">
-                                            <span class="cs-meta-author-name">{{ post.users.prenom }}
-                                                {{post.users.nom}} </span>
-                                        </a>
+{# <div class="cs-site-content cs-sidebar-enabled cs-sidebar-right">
+    <div class="cs-container"> #}
+        <div id="content" class="cs-main-content cs-container">
+            <div id="primary" class="cs-content-area">
+                <div class="cs-page__header cs-page__header-has-description">
+                    <h1 class="cs-page__title"><span>Résultat de la recherche pour : "{{ query }}"</span></h1>
+                </div>
+                <div class="cs-posts-area cs-posts-area-posts" data-init="true">
+                    <div class="cs-posts-area__outer">
+                        <div class="cs-posts-area__main cs-archive-grid  cs-posts-area__archive cs-posts-area__grid">
+                            {% if posts is not empty %}
+                            {% for post in posts %}
+                            <article
+                                class="post-{{ post.id }} post type-post status-publish format-standard has-post-thumbnail category-trends cs-entry">
+                                <div class="cs-entry__outer">
+                                    <div class="cs-entry__inner cs-entry__thumbnail cs-entry__overlay cs-overlay-ratio cs-ratio-landscape"
+                                        data-scheme="inverse">
+                                        <div class="cs-overlay-background">
+                                            <img width="512" height="384" src="{{ post.featuredImage }}"
+                                                class="attachment-csco-thumbnail size-csco-thumbnail wp-post-image"
+                                                alt="From Athleisure to Workleisure: Response to Remote Work"
+                                                decoding="async" fetchpriority="high"
+                                                srcset="{{ post.featuredImage }} 512w, {{ post.featuredImage }} 1024w"
+                                                sizes="(max-width: 512px) 100vw, 512px">
+                                        </div>
+                                        <a class="cs-overlay-link" href="{{ path('article_show', {slug: post.slug}) }}"
+                                            title="{{post.title}}"></a>
                                     </div>
-                                    <div class="cs-meta-date">{{ post.createdAt|date('d F Y') }}</div>
-                                </div>
-                                <h2 class="cs-entry__title">
-                                    <a href="{{ path('article_show', {slug: post.slug}) }}">
-                                        <span>{{ post.title }}</span>
-                                    </a>
-                                </h2>
-                                <div class="cs-entry__post-meta">
-                                    <div class="cs-meta-category">
-                                        <ul class="post-categories">
-                                            {% for category in postCategories[post.id] %}
-                                            <li>
-                                                <a href="{{ path('app_category', { slug: category.slug }) }}"
-                                                    rel="category tag">{{ category.name }}</a>
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
+                                    <div class="cs-entry__inner cs-entry__content">
+                                        <div class="cs-entry__post-meta">
+                                            <div class="cs-meta-author">
+                                                <span class="cs-meta-author-by">Par</span>
+                                                <a class="cs-meta-author-link url fn n" href="#">
+                                                    <span class="cs-meta-author-name">{{ post.users.prenom }}
+                                                        {{post.users.nom}} </span>
+                                                </a>
+                                            </div>
+                                            <div class="cs-meta-date">{{ post.createdAt|date('d F Y') }}</div>
+                                        </div>
+                                        <h2 class="cs-entry__title">
+                                            <a href="{{ path('article_show', {slug: post.slug}) }}">
+                                                <span>{{ post.title }}</span>
+                                            </a>
+                                        </h2>
+                                        <div class="cs-entry__post-meta">
+                                            <div class="cs-meta-category">
+                                                <ul class="post-categories">
+                                                    {% for category in postCategories[post.id] %}
+                                                    <li>
+                                                        <a href="{{ path('app_category', { slug: category.slug }) }}"
+                                                            rel="category tag">{{ category.name }}</a>
+                                                    </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            </article>
+                            {% endfor %}
+                            {% else %}
+                            <div class="entry-content cs-content-not-found">
+                                <div class="cs-content-not-found-content">
+                                    Il semble que nous ne parvenons pas à trouver ce que vous chercher. Veuillez
+                                    reformuler ou
+                                    vérifier
+                                    l'orthographe s'il vous plaît.
+                                </div>
                             </div>
-                        </div>
-                    </article>
-                    {% endfor %}
-                    {% else %}
-                    <div class="entry-content cs-content-not-found">
-                        <div class="cs-content-not-found-content">
-                            Il semble que nous ne parvenons pas à trouver ce que vous chercher. Veuillez reformuler ou
-                            vérifier
-                            l'orthographe s'il vous plaît.
+                            {% endif %}
                         </div>
                     </div>
-                    {% endif %}
                 </div>
             </div>
+            {# {% include 'main/main_aside.html.twig' %} #}
         </div>
-    </div>
-</div>
-
+    {# </div>
+</div> #}
 {% endblock %}

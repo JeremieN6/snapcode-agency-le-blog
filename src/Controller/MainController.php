@@ -16,37 +16,51 @@ class MainController extends AbstractController
     public function index(
         Request $request,
         CategoriesRepository $categoriesRepository,
-        PostsRepository $postsRepository
+        PostsRepository $postsRepository,
+        String $slug = null
     ): Response
     {
         $categoryPost = $categoriesRepository->findAll();
 
-         // Récupérer les catégories avec le nombre de posts
-         $allCategoriesWithCount = $categoriesRepository->findAllWithPostCount();
+        // Récupérer les catégories avec le nombre de posts
+        $allCategoriesWithCount = $categoriesRepository->findAllWithPostCount();
 
         // Récupérer les 3 articles les plus récents
         $recentPosts = $postsRepository->findThreeMostRecentPosts();
 
         // Définir la locale pour la requête
-        // $request->setLocale('fr');
+        $request->setLocale('fr');
 
         $favoritePosts = $postsRepository->findBy(['isFavorite' => true]);
+
+        $theCategoryPost = $categoriesRepository->findOneBy(['slug' => $slug]);
 
         $latestPostsByCategory = $postsRepository->findLatestPostsByCategory();
 
         $searchForm = $this->createForm(SearchFormType::class);
         $searchForm->handleRequest($request);
     
-        // dump($searchForm->createView()); // Ajoutez ceci pour vérifier que le formulaire est bien créé
+        $menuCategorie = [
+            'Développement Web' => 'developpement-web',
+            'Projets Clients' => 'projets-clients',
+            'Conseils aux Entreprises' => 'conseils-aux-entreprises',
+            'Marketing Digital et Stratégie Web' => 'marketing-digital-et-strategie-web',
+            'Design et Expérience Utilisateur (UX)' => 'design-et-experience-utilisateur-ux',
+            'Fonctionnalités et Performances Web' => 'fonctionnalites-et-performances-web',
+            'Sécurité et Conformité' => 'securite-et-conformite',
+            'Transformation Numérique' => 'transformation-numerique'
+        ];
 
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
             'latestPostsByCategory' => $latestPostsByCategory,
             'recentPosts' => $recentPosts,
+            'theCategoryPost' => $theCategoryPost,
             'categorieListWithCount' => $allCategoriesWithCount,
             'categoryPost' => $categoryPost,
             'searchForm' => $searchForm->createView(),
             'favoritePosts' => $favoritePosts,
+            'menuCategorie' => $menuCategorie
         ]);
     }
 
@@ -57,6 +71,9 @@ class MainController extends AbstractController
         $categoryPost = $categoriesRepository->findAll();
 
         $favoritePosts = $postsRepository->findBy(['isFavorite' => true]);
+
+        // Récupérer les catégories avec le nombre de posts
+        $allCategoriesWithCount = $categoriesRepository->findAllWithPostCount();
 
         // Récupérer la valeur du formulaire
         $searchForm = $this->createForm(SearchFormType::class);
@@ -83,6 +100,17 @@ class MainController extends AbstractController
         foreach ($posts as $post) {
             $postCategories[$post->getId()] = $post->getCategories();
         }
+
+        $menuCategorie = [
+            'Développement Web' => 'developpement-web',
+            'Projets Clients' => 'projets-clients',
+            'Conseils aux Entreprises' => 'conseils-aux-entreprises',
+            'Marketing Digital et Stratégie Web' => 'marketing-digital-et-strategie-web',
+            'Design et Expérience Utilisateur (UX)' => 'design-et-experience-utilisateur-ux',
+            'Fonctionnalités et Performances Web' => 'fonctionnalites-et-performances-web',
+            'Sécurité et Conformité' => 'securite-et-conformite',
+            'Transformation Numérique' => 'transformation-numerique'
+        ];
        
         return $this->render('main/search_results.html.twig', [
             'query' => $query,
@@ -90,7 +118,9 @@ class MainController extends AbstractController
             'postCategories' => $postCategories,
             'searchForm' => $searchForm->createView(),
             'categoryPost' => $categoryPost,
-            'favoritePosts' => $favoritePosts
+            'favoritePosts' => $favoritePosts,
+            'menuCategorie' => $menuCategorie,
+            'categorieListWithCount' => $allCategoriesWithCount,
         ]);
     }
 
@@ -102,8 +132,10 @@ class MainController extends AbstractController
         String $slug
     ): Response
     {
-         // Récupérer les catégories avec le nombre de posts
-         $allCategoriesWithCount = $categoriesRepository->findAllWithPostCount();
+        $categoryPost = $categoriesRepository->findAll();
+
+        // Récupérer les catégories avec le nombre de posts
+        $allCategoriesWithCount = $categoriesRepository->findAllWithPostCount();
 
         // Définir la locale pour la requête
         $request->setLocale('fr');
@@ -111,9 +143,9 @@ class MainController extends AbstractController
         $favoritePosts = $postsRepository->findBy(['isFavorite' => true]);
 
         // Récupérer la catégorie par son slug
-        $categoryPost = $categoriesRepository->findOneBy(['slug' => $slug]);
+        $theCategoryPost = $categoriesRepository->findOneBy(['slug' => $slug]);
 
-        if (!$categoryPost) {
+        if (!$theCategoryPost) {
             throw $this->createNotFoundException('Catégorie non trouvé !');
         }
 
@@ -127,7 +159,7 @@ class MainController extends AbstractController
         $currentPost = $postsRepository->createQueryBuilder('p')
             ->join('p.categories', 'c')
             ->where('c.id = :categoryId')
-            ->setParameter('categoryId', $categoryPost->getId())
+            ->setParameter('categoryId', $theCategoryPost->getId())
             ->getQuery()
             ->getResult();
 
@@ -139,22 +171,35 @@ class MainController extends AbstractController
         ->select('count(p.id)')
         ->join('p.categories', 'c')
         ->where('c.id = :categoryId')
-        ->setParameter('categoryId', $categoryPost->getId())
+        ->setParameter('categoryId', $theCategoryPost->getId())
         ->getQuery()
         ->getSingleScalarResult();
 
         $searchForm = $this->createForm(SearchFormType::class);
         $searchForm->handleRequest($request);
 
+        $menuCategorie = [
+            'Développement Web' => 'developpement-web',
+            'Projets Clients' => 'projets-clients',
+            'Conseils aux Entreprises' => 'conseils-aux-entreprises',
+            'Marketing Digital et Stratégie Web' => 'marketing-digital-et-strategie-web',
+            'Design et Expérience Utilisateur (UX)' => 'design-et-experience-utilisateur-ux',
+            'Fonctionnalités et Performances Web' => 'fonctionnalites-et-performances-web',
+            'Sécurité et Conformité' => 'securite-et-conformite',
+            'Transformation Numérique' => 'transformation-numerique'
+        ];
+
         
         return $this->render('main/category.html.twig', [
             'controller_name' => 'HomeController',
+            'theCategoryPost' => $theCategoryPost,
             'categoryPost' => $categoryPost,
             'postsList' => $currentPost,
             'postCount' => $postCount,
             'categorieListWithCount' => $allCategoriesWithCount,
             'searchForm' => $searchForm->createView(),
             'favoritePosts' => $favoritePosts,
+            'menuCategorie' => $menuCategorie
         ]);
     }
 
@@ -166,11 +211,13 @@ class MainController extends AbstractController
         string $slug
     ): Response
     {
+        $categoryPost = $categoriesRepository->findAll();
+
         // Récupérer les catégories avec le nombre de posts
         $allCategoriesWithCount = $categoriesRepository->findAllWithPostCount();
 
         // Récupérer la catégorie par son slug
-        $categoryPost = $categoriesRepository->findOneBy(['slug' => $slug]);
+        $theCategoryPost = $categoriesRepository->findOneBy(['slug' => $slug]);
 
         $favoritePosts = $postsRepository->findBy(['isFavorite' => true]);
 
@@ -206,13 +253,26 @@ class MainController extends AbstractController
         $searchForm = $this->createForm(SearchFormType::class);
         $searchForm->handleRequest($request);
 
+        $menuCategorie = [
+            'Développement Web' => 'developpement-web',
+            'Projets Clients' => 'projets-clients',
+            'Conseils aux Entreprises' => 'conseils-aux-entreprises',
+            'Marketing Digital et Stratégie Web' => 'marketing-digital-et-strategie-web',
+            'Design et Expérience Utilisateur (UX)' => 'design-et-experience-utilisateur-ux',
+            'Fonctionnalités et Performances Web' => 'fonctionnalites-et-performances-web',
+            'Sécurité et Conformité' => 'securite-et-conformite',
+            'Transformation Numérique' => 'transformation-numerique'
+        ];
+
         return $this->render('main/article.html.twig', [
             'categorieListWithCount' => $allCategoriesWithCount,
             'post' => $post,
             'searchForm' => $searchForm->createView(),
             'relatedPosts' => $relatedPosts,
             'categoryPost' => $categoryPost,
-            'favoritePosts' => $favoritePosts
+            'theCategoryPost' => $theCategoryPost,
+            'favoritePosts' => $favoritePosts,
+            'menuCategorie' => $menuCategorie
         ]);
     }
 }

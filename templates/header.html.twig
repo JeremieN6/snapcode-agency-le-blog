@@ -22,64 +22,60 @@
       <div class="widget widget_nav_menu">
         <div class="menu-primary-container">
           <ul id="menu-primary" class="menu">
+            {% for name, slug in menuCategorie %}
+                {% if name in ['Développement Web', 'Projets Clients', 'Conseils aux Entreprises', 'Marketing Digital et Stratégie Web'] %}
+                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category">
+                        <a href="{{ path('app_category', { slug: slug }) }}">{{ name }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
             <li id="menu-item-7"
-              class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-7">
-              <a href="#">Demos</a>
-              <ul class="sub-menu">
-                <li id="menu-item-14"
-                  class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-14">
-                  <a href="/lifestyle/" aria-current="page">Lifestyle</a>
-                </li>
-                <li id="menu-item-15" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15">
-                  <a href="/marketing/">Marketing</a>
-                </li>
-                <li id="menu-item-16" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16">
-                  <a href="/gadgets/">Gadgets</a>
-                </li>
-                <li id="menu-item-17" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17">
-                  <a href="/journal/">Journal</a>
-                </li>
-                <li id="menu-item-18" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18">
-                  <a href="/startups/">Startups</a>
-                </li>
-                <li id="menu-item-19" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19">
-                  <a href="/devs/">Devs</a>
-                </li>
-              </ul>
-            </li>
-            <li id="menu-item-2004" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2004">
-              <a href="https://swyft.codesupply.co/lifestyle/category/lifestyle/">Lifestyle</a>
-            </li>
-            <li id="menu-item-2006" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2006">
-              <a href="https://swyft.codesupply.co/lifestyle/category/travel/">Travel</a>
-            </li>
-            <li id="menu-item-2005" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2005">
-              <a href="https://swyft.codesupply.co/lifestyle/category/technology/">Technology</a>
-            </li>
-            <li id="menu-item-2007" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2007">
-              <a href="https://swyft.codesupply.co/lifestyle/category/trends/">Trends</a>
-            </li>
+            class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-7">
+            <a href="#">Autres</a>
+            <ul class="sub-menu">
+              {% for name, slug in menuCategorie %}
+                  {% if name not in ['Développement Web', 'Projets Clients', 'Conseils aux Entreprises', 'Marketing Digital et Stratégie Web'] %}
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                          <a href="{{ path('app_category', { slug: slug }) }}">{{ name }}</a>
+                      </li>
+                  {% endif %}
+              {% endfor %}
+            </ul>
+          </li>
           </ul>
         </div>
       </div>
       <div class="cs-offcanvas__button">
-        <a class="cs-button cs-offcanvas__button" href="https://1.envato.market/swyft" target="_blank"> Buy Now </a>
+        {% if app.user %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="cs-button cs-header__custom-button" href="{{ path('admin') }}">
+                    <i class="fa fa-user-circle-o" style="font-size:20px"></i>
+                </a>
+                <a class="cs-button cs-header__custom-button" href="{{ path('app_logout') }}">
+                    <i class="fa fa-sign-out" style="font-size:20px"></i>
+                </a>
+            {% endif %}
+        {% else %}
+            <a class="cs-button cs-header__custom-button" href="{{ path('app_login') }}">
+                <i class="fa fa-sign-in" style="font-size:20px"></i>
+            </a>
+        {% endif %}
       </div>
       <div class="cs-offcanvas__bottombar">
         <div class="cs-social">
-          <a class="cs-social__link" href="https://www.facebook.com/codesupplyco/" target="_blank">
+          <a class="cs-social__link" href="#" target="_blank">
             <img src="{{ asset('assets/social-icons/demo-icon-facebook-0001.webp') }}" alt="Facebook"
               srcset="{{ asset('assets/social-icons/demo-icon-facebook-0001.webp') }} 1x, {{ asset('assets/social-icons/demo-icon-facebook-0001.webp') }} 2x">
           </a>
-          <a class="cs-social__link" href="https://twitter.com/codesupplyco/" target="_blank">
+          <a class="cs-social__link" href="#" target="_blank">
             <img src="{{ asset('assets/social-icons/demo-icon-twitter-new-0001.webp') }}" alt="Twitter"
               srcset="{{ asset('assets/social-icons/demo-icon-twitter-new-0001.webp') }} 1x, {{ asset('assets/social-icons/demo-icon-twitter-new-0001.webp') }} 2x">
           </a>
-          <a class="cs-social__link" href="https://www.instagram.com/codesupply.co/" target="_blank">
+          <a class="cs-social__link" href="#" target="_blank">
             <img src="{{ asset('assets/social-icons/demo-icon-instagram-0001.webp') }}" alt="Instagram"
               srcset="{{ asset('assets/social-icons/demo-icon-instagram-0001.webp') }} 1x, {{ asset('assets/social-icons/demo-icon-instagram-0001.webp') }} 2x">
           </a>
-          <a class="cs-social__link" href="https://www.pinterest.com/envato/" target="_blank">
+          <a class="cs-social__link" href="#" target="_blank">
             <img src="{{ asset('assets/social-icons/demo-icon-pinterest-0001.webp') }}" alt="Pinterest"
               srcset="{{ asset('assets/social-icons/demo-icon-pinterest-0001.webp') }} 1x, {{ asset('assets/social-icons/demo-icon-pinterest-0001.webp') }} 2x">
           </a>
@@ -113,74 +109,29 @@
       <div class="cs-header__col cs-col-center">
         <nav class="cs-header__nav">
           <ul id="menu-primary-1" class="cs-header__nav-inner">
+            {% for name, slug in menuCategorie %}
+                {% if name in ['Développement Web', 'Projets Clients', 'Conseils aux Entreprises', 'Marketing Digital et Stratégie Web'] %}
+                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category">
+                        <a href="{{ path('app_category', { slug: slug }) }}">{{ name }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
             <li
               class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-7">
               <a href="#" class="menu-item-without-link">
                 <span>
-                  <span>Demos</span>
+                  <span>Autres</span>
                 </span>
               </a>
               <ul class="sub-menu">
-                <li
-                  class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-14">
-                  <a href="/lifestyle/" aria-current="page">
-                    <span>Lifestyle</span>
-                  </a>
-                </li>
-                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15">
-                  <a href="/marketing/">
-                    <span>Marketing</span>
-                  </a>
-                </li>
-                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16">
-                  <a href="/gadgets/">
-                    <span>Gadgets</span>
-                  </a>
-                </li>
-                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17">
-                  <a href="/journal/">
-                    <span>Journal</span>
-                  </a>
-                </li>
-                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18">
-                  <a href="/startups/">
-                    <span>Startups</span>
-                  </a>
-                </li>
-                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19">
-                  <a href="/devs/">
-                    <span>Devs</span>
-                  </a>
-                </li>
+                {% for name, slug in menuCategorie %}
+                    {% if name not in ['Développement Web', 'Projets Clients', 'Conseils aux Entreprises', 'Marketing Digital et Stratégie Web'] %}
+                        <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                            <a href="{{ path('app_category', { slug: slug }) }}">{{ name }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
               </ul>
-            </li>
-            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2004">
-              <a href="https://swyft.codesupply.co/lifestyle/category/lifestyle/">
-                <span>
-                  <span>Lifestyle</span>
-                </span>
-              </a>
-            </li>
-            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2006">
-              <a href="https://swyft.codesupply.co/lifestyle/category/travel/">
-                <span>
-                  <span>Travel</span>
-                </span>
-              </a>
-            </li>
-            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2005">
-              <a href="https://swyft.codesupply.co/lifestyle/category/technology/">
-                <span>
-                  <span>Technology</span>
-                </span>
-              </a>
-            </li>
-            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2007">
-              <a href="https://swyft.codesupply.co/lifestyle/category/trends/">
-                <span>
-                  <span>Trends</span>
-                </span>
-              </a>
             </li>
           </ul>
         </nav>
@@ -195,7 +146,20 @@
         <span class="cs-header__search-toggle" role="button" aria-label="Search">
           <i class="cs-icon cs-icon-search"></i>
         </span>
-        <a class="cs-button cs-header__custom-button" href="https://1.envato.market/swyft" target="_blank"> Buy Now </a>
+        {% if app.user %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="cs-button cs-header__custom-button" href="{{ path('admin') }}">
+                    <i class="fa fa-user-circle-o" style="font-size:20px"></i>
+                </a>
+                <a class="cs-button cs-header__custom-button" href="{{ path('app_logout') }}">
+                    <i class="fa fa-sign-out" style="font-size:20px"></i>
+                </a>
+            {% endif %}
+            {% else %}
+                <a class="cs-button cs-header__custom-button" href="{{ path('app_login') }}">
+                    <i class="fa fa-sign-in" style="font-size:20px"></i>
+                </a>
+        {% endif %}
       </div>
     </div>
     <div class="cs-header__inner cs-header__inner-mobile">
@@ -206,7 +170,7 @@
       </div>
       <div class="cs-header__col cs-col-center">
         <div class="cs-logo">
-          <a class="cs-header__logo cs-logo-default " href="https://swyft.codesupply.co/lifestyle/">
+          <a class="cs-header__logo cs-logo-default " href="#">
             <img src="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/11/demo-logo-0002.webp"
               alt="Lifestyle"
               srcset="https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/11/demo-logo-0002.webp 1x, https://swyft.codesupply.co/lifestyle/wp-content/uploads/sites/2/2023/11/demo-logo-0002@2x.webp 2x"

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Catégorie {{categoryPost.name}} | Snapcode Agency - Le Blog{% endblock %}
+{% block title %}Catégorie {{theCategoryPost.name}} | Snapcode Agency - Le Blog{% endblock %}
 
 {% block body %}
 <div class="cs-site-content cs-sidebar-disabled">
@@ -11,15 +11,15 @@
           <a href="{{ path('app_main') }}">Accueil</a>
         </span>
         <span class="cs-separator"></span>
-        <span class="breadcrumb_last" aria-current="page">{{ categoryPost.name }}</span>
+        <span class="breadcrumb_last" aria-current="page">{{ theCategoryPost.name }}</span>
       </span>
     </div>
     <div id="content" class="cs-main-content">
       <div id="primary" class="cs-content-area">
         <div class="cs-page__header cs-page__header-has-description">
-          <h1 class="cs-page__title">{{ categoryPost.name }}</h1>
+          <h1 class="cs-page__title">{{ theCategoryPost.name }}</h1>
           <div class="cs-page__archive-description">
-            <p>{{ categoryPost.description|raw }}</p>
+            <p>{{ theCategoryPost.description|raw }}</p>
           </div>
           <div class="cs-page__archive-count"> {{ postCount }} posts</div>
         </div>
@@ -54,7 +54,7 @@
                       <div class="cs-meta-category">
                         <ul class="post-categories">
                           <li>
-                            <a href="{{ path('app_category', { slug: categoryPost.slug }) }}" rel="category tag">{{ categoryPost.name }}</a>
+                            <a href="{{ path('app_category', { slug: theCategoryPost.slug }) }}" rel="category tag">{{ theCategoryPost.name }}</a>
                           </li>
                         </ul>
                       </div>
