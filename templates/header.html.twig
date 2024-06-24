@@ -47,14 +47,12 @@
       </div>
       <div class="cs-offcanvas__button">
         {% if app.user %}
-            {% if is_granted('ROLE_ADMIN') %}
-                <a class="cs-button cs-header__custom-button" href="{{ path('admin') }}">
-                    <i class="fa fa-user-circle-o" style="font-size:20px"></i>
-                </a>
-                <a class="cs-button cs-header__custom-button" href="{{ path('app_logout') }}">
-                    <i class="fa fa-sign-out" style="font-size:20px"></i>
-                </a>
-            {% endif %}
+            <a class="cs-button cs-header__custom-button" href="{{ path('admin') }}">
+                <i class="fa fa-user-circle-o" style="font-size:20px"></i>
+            </a>
+            <a class="cs-button cs-header__custom-button" href="{{ path('app_logout') }}">
+                <i class="fa fa-sign-out" style="font-size:20px"></i>
+            </a>
         {% else %}
             {# <a class="cs-button cs-header__custom-button" href="{{ path('app_login') }}">
                 <i class="fa fa-sign-in" style="font-size:20px"></i>
@@ -147,14 +145,12 @@
           <i class="cs-icon cs-icon-search"></i>
         </span>
         {% if app.user %}
-            {% if is_granted('ROLE_ADMIN') %}
                 <a class="cs-button cs-header__custom-button" href="{{ path('admin') }}">
                     <i class="fa fa-user-circle-o" style="font-size:20px"></i>
                 </a>
                 <a class="cs-button cs-header__custom-button" href="{{ path('app_logout') }}">
                     <i class="fa fa-sign-out" style="font-size:20px"></i>
                 </a>
-            {% endif %}
             {% else %}
                 {# <a class="cs-button cs-header__custom-button" href="{{ path('app_login') }}">
                     <i class="fa fa-sign-in" style="font-size:20px"></i>
