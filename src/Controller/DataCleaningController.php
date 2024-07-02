@@ -17,7 +17,8 @@ class DataCleaningController extends AbstractController
         $sqls = [
             "UPDATE posts SET content = REPLACE(REPLACE(REPLACE(content, '&lt;', '<'), '&gt;', '>'), '&amp;', '&')",
             "UPDATE posts SET content = REPLACE(content, '<br>', '')",
-            "UPDATE posts SET content = REPLACE(content, '<br/>', '')"
+            "UPDATE posts SET content = REPLACE(content, '<br/>', '')",
+            "UPDATE posts SET content = REPLACE(content, '&nbsp;', '')"
         ];
 
         foreach ($sqls as $sql) {
