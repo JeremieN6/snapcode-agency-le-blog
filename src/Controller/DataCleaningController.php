@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DataCleaningController extends AbstractController
 {
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/clean-posts', name: 'clean_posts')]
     public function cleanPosts(EntityManagerInterface $entityManager): Response
     {
