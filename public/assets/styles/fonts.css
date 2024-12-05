@@ -1,0 +1,64 @@
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/inter-normal-latin-ext-400.woff2') format('woff2');
+    unicode-range: U + 0100 - 02 AF, U + 0304, U + 0308, U + 0329, U + 1E00 - 1E9 F, U + 1 EF2 - 1 EFF, U + 2020, U + 20 A0 - 20 AB, U + 20 AD - 20 CF, U + 2113, U + 2 C60 - 2 C7F, U + A720 - A7FF
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/inter-normal-latin-400.woff2') format('woff2');
+    unicode-range: U + 0000 - 00 FF, U + 0131, U + 0152 - 0153, U + 02 BB - 02 BC, U + 02 C6, U + 02 DA, U + 02 DC, U + 0304, U + 0308, U + 0329, U + 2000 - 206 F, U + 2074, U + 20 AC, U + 2122, U + 2191, U + 2193, U + 2212, U + 2215, U + FEFF, U + FFFD
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/inter-normal-latin-ext-500.woff2') format('woff2');
+    unicode-range: U + 0100 - 02 AF, U + 0304, U + 0308, U + 0329, U + 1E00 - 1E9 F, U + 1 EF2 - 1 EFF, U + 2020, U + 20 A0 - 20 AB, U + 20 AD - 20 CF, U + 2113, U + 2 C60 - 2 C7F, U + A720 - A7FF
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/inter-normal-latin-500.woff2') format('woff2');
+    unicode-range: U + 0000 - 00 FF, U + 0131, U + 0152 - 0153, U + 02 BB - 02 BC, U + 02 C6, U + 02 DA, U + 02 DC, U + 0304, U + 0308, U + 0329, U + 2000 - 206 F, U + 2074, U + 20 AC, U + 2122, U + 2191, U + 2193, U + 2212, U + 2215, U + FEFF, U + FFFD
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/inter-normal-latin-ext-600.woff2') format('woff2');
+    unicode-range: U + 0100 - 02 AF, U + 0304, U + 0308, U + 0329, U + 1E00 - 1E9 F, U + 1 EF2 - 1 EFF, U + 2020, U + 20 A0 - 20 AB, U + 20 AD - 20 CF, U + 2113, U + 2 C60 - 2 C7F, U + A720 - A7FF
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/inter-normal-latin-600.woff2') format('woff2');
+    unicode-range: U + 0000 - 00 FF, U + 0131, U + 0152 - 0153, U + 02 BB - 02 BC, U + 02 C6, U + 02 DA, U + 02 DC, U + 0304, U + 0308, U + 0329, U + 2000 - 206 F, U + 2074, U + 20 AC, U + 2122, U + 2191, U + 2193, U + 2212, U + 2215, U + FEFF, U + FFFD
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/inter-normal-latin-ext-700.woff2') format('woff2');
+    unicode-range: U + 0100 - 02 AF, U + 0304, U + 0308, U + 0329, U + 1E00 - 1E9 F, U + 1 EF2 - 1 EFF, U + 2020, U + 20 A0 - 20 AB, U + 20 AD - 20 CF, U + 2113, U + 2 C60 - 2 C7F, U + A720 - A7FF
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/inter-normal-latin-700.woff2') format('woff2');
+    unicode-range: U + 0000 - 00 FF, U + 0131, U + 0152 - 0153, U + 02 BB - 02 BC, U + 02 C6, U + 02 DA, U + 02 DC, U + 0304, U + 0308, U + 0329, U + 2000 - 206 F, U + 2074, U + 20 AC, U + 2122, U + 2191, U + 2193, U + 2212, U + 2215, U + FEFF, U + FFFD
+}

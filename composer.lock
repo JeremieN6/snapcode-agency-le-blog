@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "baa76271d6ce7b5b1281757bf22306b7",
+    "content-hash": "b3021fa8a341054e34e03b0bf7655eec",
     "packages": [
         {
             "name": "composer/semver",
@@ -7093,6 +7093,7 @@
             "time": "2024-11-29T15:25:16+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "symfony/ux-twig-component",
             "version": "v2.22.0",
             "source": {
@@ -7185,6 +7186,17 @@
             },
             "dist": {
                 "type": "zip",
+=======
+            "name": "symfony/validator",
+            "version": "v7.0.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/validator.git",
+                "reference": "b3e4d838cdae9f2882402c2ad8018a27d469c075"
+            },
+            "dist": {
+                "type": "zip",
+>>>>>>> b1430e2eff0ef818aed4a76f6398ebdd0b849de8
                 "url": "https://api.github.com/repos/symfony/validator/zipball/b3e4d838cdae9f2882402c2ad8018a27d469c075",
                 "reference": "b3e4d838cdae9f2882402c2ad8018a27d469c075",
                 "shasum": ""
@@ -10067,7 +10079,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -10075,6 +10087,10 @@
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
+<<<<<<< HEAD
     "platform-dev": [],
+=======
+    "platform-dev": {},
+>>>>>>> b1430e2eff0ef818aed4a76f6398ebdd0b849de8
     "plugin-api-version": "2.6.0"
 }
