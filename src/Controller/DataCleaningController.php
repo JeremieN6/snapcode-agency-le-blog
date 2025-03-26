@@ -29,7 +29,7 @@ class DataCleaningController extends AbstractController
         }
 
         $this->addFlash('success', 'Les articles ont été correctement nettoyés.');
-        return $this->redirectToRoute('admin_dashboard');
+        return $this->redirectToRoute('admin');
 
     }
 }
