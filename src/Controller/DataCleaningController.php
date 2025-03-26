@@ -6,11 +6,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_ADMIN')] // Vérifie si l'utilisateur est connecté et a le rôle ROLE_ADMIN
 class DataCleaningController extends AbstractController
 {
-    #[IsGranted('ROLE_ADMIN')]
-    #[Route('/clean-posts', name: 'clean_posts')]
+    #[Route('/admin/clean-posts', name: 'admin_clean_posts')]
     public function cleanPosts(EntityManagerInterface $entityManager): Response
     {
         $connection = $entityManager->getConnection();
@@ -27,12 +28,8 @@ class DataCleaningController extends AbstractController
             $stmt->executeStatement();
         }
 
-        return new Response('Posts cleaned successfully.');
+        $this->addFlash('success', 'Les articles ont été correctement nettoyés.');
+        return $this->redirectToRoute('admin_dashboard');
 
-        // // Ajouter un message flash
-        // $this->addFlash('success', 'Les articles ont été correctement nettoyés selon les requêtes.');
-
-        // // Rediriger vers une page spécifique après le nettoyage
-        // return $this->redirectToRoute('app_main'); // Remplacez 'app_main' par la route vers laquelle vous souhaitez rediriger l'utilisateur
     }
 }

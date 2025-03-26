@@ -3,6 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Posts;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -19,6 +22,16 @@ class PostsCrudController extends AbstractCrudController
         return Posts::class;
     }
 
+    public function configureActions(Actions $actions): Actions
+    {
+        $cleanPosts = Action::new('clean_posts', 'Nettoyer les articles', 'fa fa-broom')
+            ->linkToRoute('admin_clean_posts')
+            ->createAsGlobalAction() // Ajout en tant qu'action globale
+            ->addCssClass('btn btn-primary');
+            
+        return $actions
+            ->add(Crud::PAGE_INDEX, $cleanPosts);
+    }
     
     public function configureFields(string $pageName): iterable
     {
