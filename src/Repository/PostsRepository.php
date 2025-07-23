@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Categories;
 use App\Entity\Posts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -55,6 +56,43 @@ class PostsRepository extends ServiceEntityRepository
             ->where('p.title LIKE :keyword OR p.content LIKE :keyword')
             ->setParameter('keyword', '%'.$keyword.'%')
             ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function findByCategory(string $categoryName)
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.categories', 'c') // Correctement 'categories' ici
+            ->andWhere('c.name = :categoryName')
+            ->setParameter('categoryName', $categoryName)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllTitles(): array
+    {
+        // Effectue la requête pour récupérer les titres
+        $query = $this->createQueryBuilder('p')
+            ->select('p.title')
+            ->getQuery();
+
+        // Exécute la requête et retourne le tableau des titres
+        $result = $query->getResult();
+
+        // Convertir le résultat pour ne récupérer que les titres sous forme de tableau de chaînes
+        return array_map(function ($post) {
+            return $post['title'];
+        }, $result);
+    }
+
+    public function findTitlesByCategory(string $categoryName): array
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.categories', 'c') // Assure-toi que 'category' est le bon nom de la relation dans Posts
+            ->andWhere('c.name = :categoryName') // Utilise la propriété 'name' de Categories
+            ->setParameter('categoryName', $categoryName)
             ->getQuery()
             ->getResult();
     }

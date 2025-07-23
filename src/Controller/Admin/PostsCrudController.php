@@ -3,6 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Posts;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -19,7 +22,17 @@ class PostsCrudController extends AbstractCrudController
         return Posts::class;
     }
 
+    public function configureActions(Actions $actions): Actions
+    {
+        $generatePost = Action::new('generatePost', 'Générer un article')
+            ->linkToRoute('admin_generate_post') // Lien vers la route définie
+            ->setCssClass('btn btn-primary')
+            ->createAsGlobalAction(); // Important : Déclare l'action comme globale
     
+        return $actions
+            ->add(Crud::PAGE_INDEX, $generatePost);
+    }
+
     public function configureFields(string $pageName): iterable
     {
         return [

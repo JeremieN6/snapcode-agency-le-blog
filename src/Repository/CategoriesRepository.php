@@ -30,6 +30,7 @@ class CategoriesRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getScalarResult();
     }
+    
 
     //    /**
     //     * @return Categories[] Returns an array of Categories objects

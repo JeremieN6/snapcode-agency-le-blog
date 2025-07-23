@@ -2,10 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Posts;
 use App\Form\SearchFormType;
 use App\Repository\CategoriesRepository;
 use App\Repository\PostsRepository;
+use App\Service\OpenAiService;
+use App\Service\PexelsService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -275,4 +280,46 @@ class MainController extends AbstractController
             'menuCategorie' => $menuCategorie
         ]);
     }
+
+    public function generatePost(
+        CategoriesRepository $categoriesRepository,
+        PostsRepository $postsRepository,
+        EntityManagerInterface $entityManager,
+        OpenAiService $openAiService,
+        PexelsService $pexelsService
+    )
+{
+    $categories = $categoriesRepository->findAll();
+    $existingTitles = $postsRepository->findAllTitles(); // Implémente cette méthode pour récupérer tous les titres
+
+    // Choisir une catégorie aléatoire
+    $category = $categories[array_rand($categories)];
+    $categoryName = $category->getName();
+
+    $articleContent = $openAiService->generateBlogArticle($categoryName, $existingTitles);
+
+    if (strpos($articleContent, 'Aucun sujet unique trouvé.') !== false) {
+        // Gérer l'erreur
+        return new JsonResponse(['error' => 'Aucun sujet unique trouvé.']);
+    }
+
+    // // Étape 5 : Récupérer les images depuis Pexels
+    // $bannerImage = $pexelsService->fetchImage($title);
+    // $contentImage = $pexelsService->fetchImage($title);
+
+    // Créer et enregistrer l'article
+    $postEntity = new Posts();
+    $postEntity->setTitle('Titre généré');
+    $postEntity->setContent($articleContent);
+    // $postEntity->setFeaturedImage($bannerImage);
+    $postEntity->addCategory($category);
+    // Ajouter d'autres propriétés selon ton modèle
+
+
+    $entityManager->persist($postEntity);
+    $entityManager->flush();
+
+    return new JsonResponse(['success' => 'Article généré avec succès.']);
+}
+
 }
